@@ -5,31 +5,29 @@ using WebApplicationTinglysning.Servises;
 
 namespace WebApplicationTinglysning.Controllers
 {
-    [Route("api/vehicles")]
+    [Route("api/company")]
     [ApiController]
-    public class VehiclesController : ControllerBase
+    public class CompanyController : ControllerBase
     {
-        VehiclesDbHandler dbHandler = new VehiclesDbHandler();
+        CompanyDbHandler dbHandler = new CompanyDbHandler();
 
-        // Search by chassis number (stelnummer)
-        // localhost:62191/api/vehicles/chassisnumber?chassisnumber=5Y4AJ14W0B0518535
-        [Route("chassisnumber")]
+        // Search possible document types (Mulige dokumenttyper)
+        // localhost:62191/api/company/documenttypes
+        [Route("documenttypes")]
         [HttpGet]
-        public async Task<IActionResult> GetByChassisNumberAsync([FromQuery] string chassisNumber)
+        public async Task<IActionResult> GetDocumentTypesAsync()
         {
-            var response = await dbHandler.GetVehiclesByChassisNumberAsync(chassisNumber.ToUpper());
-
+            var response = await dbHandler.GetDocumentTypesAsync();
             return HandleResponse(response);
         }
 
-        // search by cvr number
-        // localhost:62191/api/vehicles/cvr?cvr=123456
-        [Route("cvr")]
+        // Search possible document types (Mulige dokumenttyper)
+        // localhost:62191/api/company/roletypes
+        [Route("roletypes")]
         [HttpGet]
-        public async Task<IActionResult> GetByCvrAsync([FromQuery] string cvr)
+        public async Task<IActionResult> GetRoleTypesAsync()
         {
-            var response = await dbHandler.GetVehiclesByCvrAsync(cvr);
-
+            var response = await dbHandler.GetRoleTypesAsync();
             return HandleResponse(response);
         }
 

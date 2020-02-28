@@ -46,32 +46,7 @@ namespace WebApplicationTinglysning.Servises
         public async Task<ResponseObject> GetFromServiceByChassisNumberAsync(string chassisNumber)
         {
             string uri = $"https://www.tinglysning.dk/tinglysning/unsecrest/soegbil?stelnr={chassisNumber}";
-
-            string newVehiclesDataJson = HttpWebHandler.DoSSLGet(uri);
-
-            var newVehiclesData = JsonConvert.DeserializeObject<VehicleJsonResponseModel>(newVehiclesDataJson);
-
-            
-            if (newVehiclesData == null && newVehiclesData.Items == null)
-            {
-                return new ResponseObject
-                {
-                    ResponseStatus = ResponseStatus.BAD_REQUEST,
-                    Content = string.IsNullOrEmpty(newVehiclesDataJson) ? null : newVehiclesDataJson
-                };
-            }
-            else if (newVehiclesData.Items.Count == 0)
-            {
-                return new ResponseObject
-                {
-                    ResponseStatus = ResponseStatus.NOT_FOUND,
-                    Content = string.IsNullOrEmpty(newVehiclesDataJson) ? null : newVehiclesDataJson
-                };
-            }
-            else
-            {
-                return await VehiclesLookupAsync(newVehiclesData);
-            }
+            return await HandleResponseAsync(uri);
         }
 
         public async Task<ResponseObject> GetVehiclesByCvrAsync(string cvr)
@@ -102,11 +77,14 @@ namespace WebApplicationTinglysning.Servises
         public async Task<ResponseObject> GetServiceByCvrAsync(string cvr)
         {
             string uri = $"https://www.tinglysning.dk/tinglysning/unsecrest/soegbil?cvr={cvr}";
+            return await HandleResponseAsync(uri);
+        }
 
+        private async Task<ResponseObject> HandleResponseAsync(string uri)
+        {
             string newVehiclesDataJson = HttpWebHandler.DoSSLGet(uri);
 
             var newVehiclesData = JsonConvert.DeserializeObject<VehicleJsonResponseModel>(newVehiclesDataJson);
-
 
             if (newVehiclesData == null && newVehiclesData.Items == null)
             {

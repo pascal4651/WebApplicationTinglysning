@@ -10,7 +10,7 @@ namespace WebApplicationTinglysning.Servises
     {
         private const string FOCES_PATH = @"C:\Users\os\Downloads\FOCES_gyldig_2022_2.p12";
 
-        public static  string DoSSLGet(string uri)
+        public static string DoSSLGet(string uri)
         {
             string response = string.Empty;
             try

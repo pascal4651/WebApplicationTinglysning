@@ -214,7 +214,7 @@ namespace WebApplicationTinglysning.Servises
                 return new ResponseObject
                 {
                     ResponseStatus = ResponseStatus.BAD_REQUEST,
-                    Content = string.IsNullOrEmpty(newHousingCooperativesDataJson) ? null : newHousingCooperativesDataJson
+                    Content = newHousingCooperativesDataJson ?? ""
                 };
             }
             else if (newHousingCooperativesData.Items.Count == 0)
@@ -222,7 +222,7 @@ namespace WebApplicationTinglysning.Servises
                 return new ResponseObject
                 {
                     ResponseStatus = ResponseStatus.NOT_FOUND,
-                    Content = string.IsNullOrEmpty(newHousingCooperativesDataJson) ? null : newHousingCooperativesDataJson
+                    Content = newHousingCooperativesDataJson ?? ""
                 };
             }
             else

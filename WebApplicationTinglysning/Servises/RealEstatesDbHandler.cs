@@ -305,13 +305,12 @@ namespace WebApplicationTinglysning.Servises
 
             var newRealEstatesData = JsonConvert.DeserializeObject<RealEstateJsonResponseModel>(newRealEstateDataJson);
 
-
             if (newRealEstatesData == null || newRealEstatesData.Items == null)
             {
                 return new ResponseObject
                 {
                     ResponseStatus = ResponseStatus.BAD_REQUEST,
-                    Content = string.IsNullOrEmpty(newRealEstateDataJson) ? null : newRealEstateDataJson
+                    Content = newRealEstateDataJson ?? ""
                 };
             }
             else if (newRealEstatesData.Items.Count == 0)
@@ -319,7 +318,7 @@ namespace WebApplicationTinglysning.Servises
                 return new ResponseObject
                 {
                     ResponseStatus = ResponseStatus.NOT_FOUND,
-                    Content = string.IsNullOrEmpty(newRealEstateDataJson) ? null : newRealEstateDataJson
+                    Content = newRealEstateDataJson ?? ""
                 };
             }
             else
