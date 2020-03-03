@@ -1,5 +1,4 @@
 ﻿using Google.Cloud.Firestore;
-using System.Collections.Generic;
 
 namespace WebApplicationTinglysning.Models.HousingCooperativesModels
 {
@@ -41,7 +40,7 @@ namespace WebApplicationTinglysning.Models.HousingCooperativesModels
         public string FloorIdentifier { get; set; }
 
         // SideDoer
-        [FirestoreProperty("sideDoor")]
-        public string SideDoor { get; set; }
+        [FirestoreProperty("suiteIdentifier")]
+        public string SuiteIdentifier { get; set; }
     }
 }

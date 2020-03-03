@@ -12,7 +12,7 @@ namespace WebApplicationTinglysning.Models.HousingCooperativesModels
 
         public string FloorIdentifier { get; set; }
 
-        public string SideDoor { get; set; }
+        public string SuiteIdentifier { get; set; }
 
         public string MunicipalityCode { get; set; }
 

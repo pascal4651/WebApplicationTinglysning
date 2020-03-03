@@ -21,10 +21,19 @@ namespace WebApplicationTinglysning.Servises
 
         public async Task<ResponseObject> GetRealEsatesByAddressAsync(RealEstateApi realEstateApi)
         {
+            /*
             Query realEstateQuery = collection
                 .WhereEqualTo("streetName", realEstateApi.StreetName)
                 .WhereEqualTo("postCodeIdentifier", realEstateApi.PostCodeIdentifier);
- 
+                */
+
+            Query realEstateQuery = collection
+                .WhereEqualTo("streetName", realEstateApi.StreetName)
+                .WhereEqualTo("floorIdentifier", realEstateApi.FloorIdentifier)
+                .WhereEqualTo("streetBuildingIdentifier", realEstateApi.StreetBuildingIdentifier)
+                .WhereEqualTo("suiteIdentifier", realEstateApi.SuiteIdentifier)
+                .WhereEqualTo("postCodeIdentifier", realEstateApi.PostCodeIdentifier);
+
             QuerySnapshot realEstatesSnapshot = await realEstateQuery.GetSnapshotAsync();
 
             if (realEstatesSnapshot.Count > 0)
@@ -34,7 +43,13 @@ namespace WebApplicationTinglysning.Servises
                 foreach (var item in realEstatesSnapshot.Documents)
                 {
                     RealEstate realEstate = item.ConvertTo<RealEstate>();
+                    /*
                     if (realEstate != null && realEstateApi.StreetBuildingIdentifier != null && realEstate.StreetBuildingIdentifier.ToLower().Contains(realEstateApi.StreetBuildingIdentifier.ToLower()))
+                    {
+                        selectedRealEstates.Add(realEstate);
+                    }*/
+
+                    if (realEstate != null)
                     {
                         selectedRealEstates.Add(realEstate);
                     }
@@ -53,8 +68,12 @@ namespace WebApplicationTinglysning.Servises
 
         public async Task<ResponseObject> GetFromServiceByAddressAsync(RealEstateApi realEstateApi)
         {
-            string uri = string.Format("https://www.tinglysning.dk/tinglysning/ssl/ejendom/adresse?husnummer={0}&postnummer={1}&vejnavn={2}",
-                    realEstateApi.StreetBuildingIdentifier, realEstateApi.PostCodeIdentifier, realEstateApi.StreetName);
+            string uri = string.Format("https://www.tinglysning.dk/tinglysning/ssl/ejendom/adresse?etage={0}&husnummer={1}&postnummer={2}&sidedoer={3}&vejnavn={4}",
+                realEstateApi.FloorIdentifier,
+                realEstateApi.StreetBuildingIdentifier,
+                realEstateApi.PostCodeIdentifier,
+                realEstateApi.SuiteIdentifier,
+                realEstateApi.StreetName);
             return await HandleResponseAsync(uri);
         }
 
@@ -247,6 +266,9 @@ namespace WebApplicationTinglysning.Servises
                             StreetName = newRealEstateData.EjendomSummarisk?.EjendomStamoplysninger?.AdresseStruktur?.StreetName,
                             StreetCode = newRealEstateData.EjendomSummarisk?.EjendomStamoplysninger?.AdresseStruktur?.AddressSpecific?.AddressAccess?.StreetCode,
                             StreetBuildingIdentifier = newRealEstateData.EjendomSummarisk?.EjendomStamoplysninger?.AdresseStruktur?.AddressSpecific?.AddressAccess?.StreetBuildingIdentifier,
+                            FloorIdentifier = newRealEstateData.EjendomSummarisk?.EjendomStamoplysninger?.AdresseStruktur?.AddressSpecific?.FloorIdentifier,
+                            SuiteIdentifier = newRealEstateData.EjendomSummarisk?.EjendomStamoplysninger?.AdresseStruktur?.AddressSpecific?.SuiteIdentifier,
+                            ApartmentNumber = newRealEstateData.EjendomSummarisk?.EjendomStamoplysninger?.EjendomIdentifikator?.EjendomType?.Ejerlejlighed?.Ejerlejlighedsnummer,
                             PostCodeIdentifier = newRealEstateData.EjendomSummarisk?.EjendomStamoplysninger?.AdresseStruktur?.PostCodeIdentifier,
                             DistrictName = newRealEstateData.EjendomSummarisk?.EjendomStamoplysninger?.AdresseStruktur?.DistrictName,
                             DistrictSubdivisionIdentifier = newRealEstateData.EjendomSummarisk?.EjendomStamoplysninger?.AdresseStruktur?.DistrictSubdivisionIdentifier,

@@ -1,5 +1,6 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
+using WebApplicationTinglysning.Helpers;
 using WebApplicationTinglysning.Models;
 using WebApplicationTinglysning.Models.HousingCooperativesModels;
 using WebApplicationTinglysning.Servises;
@@ -19,6 +20,8 @@ namespace WebApplicationTinglysning.Controllers
         [Route("address")] 
         public async Task<IActionResult> GetByAddressAsync([FromQuery] HousingCooperativeApi housingCooperativeApi)
         {
+            housingCooperativeApi = NormalizeHousingCooperativeApi(housingCooperativeApi);
+
             var response = await dbHandler.GetHousingCooperativesByAddressAsync(housingCooperativeApi);
             return HandleResponse(response);
         }
@@ -29,8 +32,24 @@ namespace WebApplicationTinglysning.Controllers
         [Route("municipality")]
         public async Task<IActionResult> GetByMunicipalityAndStreetCodesAsync([FromQuery] HousingCooperativeApi housingCooperativeApi)
         {
+            housingCooperativeApi = NormalizeHousingCooperativeApi(housingCooperativeApi);
+
             var response = await dbHandler.GetHousingCooperativesByMunicipalityAndStreetCodesAsync(housingCooperativeApi);
             return HandleResponse(response);
+        }
+
+        private HousingCooperativeApi NormalizeHousingCooperativeApi(HousingCooperativeApi housingCooperativeApi)
+        {
+            return new HousingCooperativeApi()
+            {
+                FloorIdentifier = housingCooperativeApi.FloorIdentifier?.ToUpper(),
+                StreetBuildingIdentifier = housingCooperativeApi.StreetBuildingIdentifier?.ToUpper(),
+                PostCodeIdentifier = housingCooperativeApi.PostCodeIdentifier,
+                SuiteIdentifier = housingCooperativeApi.SuiteIdentifier?.ToUpper(),
+                StreetName = housingCooperativeApi.StreetName?.ToTitleCase(),
+                MunicipalityCode = housingCooperativeApi.MunicipalityCode,
+                StreetCode = housingCooperativeApi.StreetCode
+            };
         }
 
         private IActionResult HandleResponse(ResponseObject response)

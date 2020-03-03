@@ -77,8 +77,12 @@ namespace WebApplicationTinglysning.Models
         public string FloorIdentifier { get; set; }
 
         // SideDoer
-        [FirestoreProperty("sideDoor")]
-        public string SideDoor { get; set; }
+        [FirestoreProperty("suiteIdentifier")]
+        public string SuiteIdentifier { get; set; }
+
+        // Ejerlejlighedsnummer
+        [FirestoreProperty("apartmentNumber")]
+        public string ApartmentNumber { get; set; }
     }
 
 

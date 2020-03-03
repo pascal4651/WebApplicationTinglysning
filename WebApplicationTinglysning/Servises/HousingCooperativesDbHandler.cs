@@ -25,7 +25,7 @@ namespace WebApplicationTinglysning.Servises
                 .WhereEqualTo("streetBuildingIdentifier", housingCooperativeApi.StreetBuildingIdentifier)
                 .WhereEqualTo("postCodeIdentifier", housingCooperativeApi.PostCodeIdentifier)
                 .WhereEqualTo("floorIdentifier", housingCooperativeApi.FloorIdentifier)
-                .WhereEqualTo("sideDoor", housingCooperativeApi.SideDoor);
+                .WhereEqualTo("suiteIdentifier", housingCooperativeApi.SuiteIdentifier);
 
             QuerySnapshot housingCooperativesSnapshot = await housingCooperativesQuery.GetSnapshotAsync();
 
@@ -59,7 +59,7 @@ namespace WebApplicationTinglysning.Servises
                 housingCooperativeApi.FloorIdentifier,
                 housingCooperativeApi.StreetBuildingIdentifier, 
                 housingCooperativeApi.PostCodeIdentifier,
-                housingCooperativeApi.SideDoor,
+                housingCooperativeApi.SuiteIdentifier,
                 housingCooperativeApi.StreetName);
 
             return await HandleResponseAsync(uri);
@@ -81,7 +81,7 @@ namespace WebApplicationTinglysning.Servises
                 .WhereEqualTo("streetBuildingIdentifier", housingCooperativeApi.StreetBuildingIdentifier)
                 .WhereEqualTo("municipalityCode", municipalityCode.ToString("D4"))
                 .WhereEqualTo("floorIdentifier", housingCooperativeApi.FloorIdentifier)
-                .WhereEqualTo("sideDoor", housingCooperativeApi.SideDoor);
+                .WhereEqualTo("suiteIdentifier", housingCooperativeApi.SuiteIdentifier);
 
             QuerySnapshot housingCooperativesSnapshot = await housingCooperativesQuery.GetSnapshotAsync();
 
@@ -115,7 +115,7 @@ namespace WebApplicationTinglysning.Servises
                 housingCooperativeApi.FloorIdentifier,
                 housingCooperativeApi.StreetBuildingIdentifier,
                 housingCooperativeApi.MunicipalityCode,
-                housingCooperativeApi.SideDoor,
+                housingCooperativeApi.SuiteIdentifier,
                 housingCooperativeApi.StreetCode);
 
             return await HandleResponseAsync(uri);
@@ -154,7 +154,7 @@ namespace WebApplicationTinglysning.Servises
                             PostCodeIdentifier = item.Postnummer,
                             DistrictName = item.Kommunenavn,
                             FloorIdentifier = item.Etage,
-                            SideDoor = item.Side
+                            SuiteIdentifier = item.Side
                         };
                         housingCooperatives.Add(newHousingCooperative);
                         await collection.Document().SetAsync(newHousingCooperative);
@@ -186,7 +186,7 @@ namespace WebApplicationTinglysning.Servises
                                 PostCodeIdentifier = newHousingCooperativeData.AndelSummarisk.AndelStamoplysninger.AdresseStruktur.PostCodeIdentifier,
                                 DistrictName = newHousingCooperativeData.AndelSummarisk.AndelStamoplysninger.AdresseStruktur.DistrictName,
                                 FloorIdentifier = newHousingCooperativeData.AndelSummarisk.AndelStamoplysninger.AndelIdentifikator.FloorIdentifier,
-                                SideDoor = newHousingCooperativeData.AndelSummarisk.AndelStamoplysninger.AndelIdentifikator.SideDoerTekst
+                                SuiteIdentifier = newHousingCooperativeData.AndelSummarisk.AndelStamoplysninger.AndelIdentifikator.SideDoerTekst
                             };
 
                             await collection.Document(newHousingCooperativeUuid).SetAsync(newHousingCooperative);

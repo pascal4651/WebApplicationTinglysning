@@ -19,6 +19,10 @@ namespace WebApplicationTinglysning.Models
 	{
 		[XmlElement(ElementName = "AddressAccess", Namespace = "http://rep.oio.dk/xkom.dk/xml/schemas/2005/03/15/")]
 		public AddressAccess AddressAccess { get; set; }
+		[XmlElement(ElementName = "FloorIdentifier", Namespace = "http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/")]
+		public string FloorIdentifier { get; set; }
+		[XmlElement(ElementName = "SuiteIdentifier", Namespace = "http://rep.oio.dk/ebxml/xml/schemas/dkcc/2003/02/13/")]
+		public string SuiteIdentifier { get; set; }
 	}
 
 	[XmlRoot(ElementName = "AdresseStruktur", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/snapshot/1/")]
@@ -34,6 +38,20 @@ namespace WebApplicationTinglysning.Models
 		public string DistrictName { get; set; }
 		[XmlElement(ElementName = "DistrictSubdivisionIdentifier", Namespace = "http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/")]
 		public string DistrictSubdivisionIdentifier { get; set; }
+	}
+
+	[XmlRoot(ElementName = "Ejerlejlighed", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+	public class Ejerlejlighed
+	{
+		[XmlElement(ElementName = "Ejerlejlighedsnummer", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+		public string Ejerlejlighedsnummer { get; set; }
+	}
+
+	[XmlRoot(ElementName = "EjendomType", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+	public class EjendomType
+	{
+		[XmlElement(ElementName = "Ejerlejlighed", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+		public Ejerlejlighed Ejerlejlighed { get; set; }
 	}
 
 	[XmlRoot(ElementName = "Matrikel", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
@@ -66,6 +84,8 @@ namespace WebApplicationTinglysning.Models
 	{
 		[XmlElement(ElementName = "BestemtFastEjendomNummer", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
 		public string BestemtFastEjendomNummer { get; set; }
+		[XmlElement(ElementName = "EjendomType", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+		public EjendomType EjendomType { get; set; }
 		[XmlElement(ElementName = "Matrikel", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
 		public List<Matrikel> Matrikel { get; set; }
 
@@ -127,6 +147,15 @@ namespace WebApplicationTinglysning.Models
 		public EjendomVurderingStruktur EjendomVurderingStruktur { get; set; }
 	}
 
+	[XmlRoot(ElementName = "Fordelingtal", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+	public class Fordelingtal
+	{
+		[XmlElement(ElementName = "Taeller", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+		public string Taeller { get; set; }
+		[XmlElement(ElementName = "Naevner", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+		public string Naevner { get; set; }
+	}
+
 	[XmlRoot(ElementName = "EjendomIndskannetAktSamling", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/elektroniskakt/1/")]
 	public class EjendomIndskannetAktSamling
 	{
@@ -171,11 +200,15 @@ namespace WebApplicationTinglysning.Models
 		public MatrikelStrukturSamling MatrikelStrukturSamling { get; set; }
 		[XmlElement(ElementName = "EjendomVurderingSamling", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/snapshot/1/")]
 		public EjendomVurderingSamling EjendomVurderingSamling { get; set; }
+		[XmlElement(ElementName = "Fordelingtal", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+		public Fordelingtal Fordelingtal { get; set; }
 		[XmlElement(ElementName = "EjendomIndskannetAktSamling", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/elektroniskakt/1/")]
 		public EjendomIndskannetAktSamling EjendomIndskannetAktSamling { get; set; }
 		// Added
 		[XmlElement(ElementName = "EjendomNoteringTekstSamling", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/elektroniskakt/1/")]
 		public EjendomNoteringTekstSamling EjendomNoteringTekstSamling { get; set; }
+		[XmlElement(ElementName = "TillaegstekstSamling", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/elektroniskakt/1/")]
+		public TillaegstekstSamling TillaegstekstSamling { get; set; }
 	}
 
 	[XmlRoot(ElementName = "DokumentRevisionIdentifikator", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
@@ -212,6 +245,15 @@ namespace WebApplicationTinglysning.Models
 		public string AktHistoriskIdentifikator { get; set; }
 	}
 
+	[XmlRoot(ElementName = "PersonSimpelIdentifikator", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+	public class PersonSimpelIdentifikator
+	{
+		[XmlElement(ElementName = "PersonName", Namespace = "http://rep.oio.dk/itst.dk/xml/schemas/2006/01/17/")]
+		public string PersonName { get; set; }
+		[XmlElement(ElementName = "BirthDate", Namespace = "http://rep.oio.dk/ebxml/xml/schemas/dkcc/2005/03/15/")]
+		public string BirthDate { get; set; }
+	}
+
 	[XmlRoot(ElementName = "AndelIdeel", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
 	public class AndelIdeel
 	{
@@ -232,6 +274,8 @@ namespace WebApplicationTinglysning.Models
 		public AddressSpecific AddressSpecific { get; set; }
 		[XmlElement(ElementName = "AndelIdeel", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
 		public AndelIdeel AndelIdeel { get; set; }
+		[XmlElement(ElementName = "PersonSimpelIdentifikator", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+		public PersonSimpelIdentifikator PersonSimpelIdentifikator { get; set; }
 	}
 
 	[XmlRoot(ElementName = "AdkomsthaverSamling", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/elektroniskakt/1/")]
@@ -317,6 +361,8 @@ namespace WebApplicationTinglysning.Models
 		public VirksomhedSimpelIdentifikator VirksomhedSimpelIdentifikator { get; set; }
 		[XmlElement(ElementName = "AddressSpecific", Namespace = "http://rep.oio.dk/xkom.dk/xml/schemas/2006/01/06/")]
 		public AddressSpecific AddressSpecific { get; set; }
+		[XmlElement(ElementName = "PersonSimpelIdentifikator", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+		public PersonSimpelIdentifikator PersonSimpelIdentifikator { get; set; }
 	}
 
 	[XmlRoot(ElementName = "KreditorInformationSamling", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/elektroniskakt/1/")]
@@ -331,6 +377,22 @@ namespace WebApplicationTinglysning.Models
 	{
 		[XmlElement(ElementName = "RolleInformation", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
 		public RolleInformation RolleInformation { get; set; }
+	}
+
+	[XmlRoot(ElementName = "HaeftelseRenteFast", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+	public class HaeftelseRenteFast
+	{
+		[XmlElement(ElementName = "HaeftelseRentePaalydendeSats", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+		public string HaeftelseRentePaalydendeSats { get; set; }
+		[XmlElement(ElementName = "HaeftelseRenteSatsForeloebigIndikator", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+		public string HaeftelseRenteSatsForeloebigIndikator { get; set; }
+	}
+
+	[XmlRoot(ElementName = "HaeftelseRente", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+	public class HaeftelseRente
+	{
+		[XmlElement(ElementName = "HaeftelseRenteFast", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+		public HaeftelseRenteFast HaeftelseRenteFast { get; set; }
 	}
 
 	[XmlRoot(ElementName = "UnderpantBeloeb", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
@@ -423,6 +485,155 @@ namespace WebApplicationTinglysning.Models
 		public string DokumentFilnavnTekst { get; set; }
 	}
 
+	[XmlRoot(ElementName = "Servitutrettighed", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+	public class Servitutrettighed
+	{
+		[XmlElement(ElementName = "RettighedIdentifikator", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+		public string RettighedIdentifikator { get; set; }
+		[XmlElement(ElementName = "PrioritetNummer", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+		public string PrioritetNummer { get; set; }
+	}
+
+	[XmlRoot(ElementName = "ServitutInformation", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+	public class ServitutInformation
+	{
+		[XmlElement(ElementName = "ServitutKanTinglysesUdenEjersTiltraedelseIndikator", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+		public string ServitutKanTinglysesUdenEjersTiltraedelseIndikator { get; set; }
+		[XmlElement(ElementName = "ServitutKanTinglysesMedPrioritetForudForGaeldOgServitutterIndikator", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+		public string ServitutKanTinglysesMedPrioritetForudForGaeldOgServitutterIndikator { get; set; }
+		[XmlElement(ElementName = "ServitutHarBetydningForEjendommensVaerdiIndikator", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+		public string ServitutHarBetydningForEjendommensVaerdiIndikator { get; set; }
+		[XmlElement(ElementName = "ServitutAfsnitAnvendelse", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+		public ServitutAfsnitAnvendelse ServitutAfsnitAnvendelse { get; set; }
+		[XmlElement(ElementName = "ServitutAfsnitBebyggelse", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+		public ServitutAfsnitBebyggelse ServitutAfsnitBebyggelse { get; set; }
+		[XmlElement(ElementName = "ServitutAfsnitAndet", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+		public ServitutAfsnitAndet ServitutAfsnitAndet { get; set; }
+		[XmlElement(ElementName = "ServitutAfsnitEjendomsforhold", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+		public ServitutAfsnitEjendomsforhold ServitutAfsnitEjendomsforhold { get; set; }
+		[XmlElement(ElementName = "ServitutAfsnitFaerdsel", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+		public ServitutAfsnitFaerdsel ServitutAfsnitFaerdsel { get; set; }
+		[XmlElement(ElementName = "ServitutAfsnitTekniskeAnlaeg", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+		public ServitutAfsnitTekniskeAnlaeg ServitutAfsnitTekniskeAnlaeg { get; set; }
+	}
+
+	[XmlRoot(ElementName = "ServitutSummarisk", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/elektroniskakt/1/")]
+	public class ServitutSummarisk
+	{
+		[XmlElement(ElementName = "DokumentRevisionIdentifikator", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+		public DokumentRevisionIdentifikator DokumentRevisionIdentifikator { get; set; }
+		[XmlElement(ElementName = "TinglysningsDato", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+		public string TinglysningsDato { get; set; }
+		[XmlElement(ElementName = "Servitutrettighed", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+		public Servitutrettighed Servitutrettighed { get; set; }
+		[XmlElement(ElementName = "DokumentAlias", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/elektroniskakt/1/")]
+		public DokumentAlias DokumentAlias { get; set; }
+		[XmlElement(ElementName = "ServitutType", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+		public string ServitutType { get; set; }
+		[XmlElement(ElementName = "ServitutInformation", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+		public ServitutInformation ServitutInformation { get; set; }
+		[XmlElement(ElementName = "DokumentOverfoertIndikator", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/elektroniskakt/1/")]
+		public string DokumentOverfoertIndikator { get; set; }
+		[XmlElement(ElementName = "TillaegstekstSamling", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/elektroniskakt/1/")]
+		public TillaegstekstSamling TillaegstekstSamling { get; set; }
+		[XmlElement(ElementName = "DokumentInformationOverfoert", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/elektroniskakt/1/")]
+		public DokumentInformationOverfoert DokumentInformationOverfoert { get; set; }
+		[XmlElement(ElementName = "OgsaaLystPaaSamling", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/elektroniskakt/1/")]
+		public OgsaaLystPaaSamling OgsaaLystPaaSamling { get; set; }
+	}
+
+	[XmlRoot(ElementName = "ServitutIndholdAnvendelse", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+	public class ServitutIndholdAnvendelse
+	{
+		[XmlElement(ElementName = "ServitutIndholdAnvendelseKode", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+		public string ServitutIndholdAnvendelseKode { get; set; }
+	}
+
+	[XmlRoot(ElementName = "ServitutAfsnitAnvendelse", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+	public class ServitutAfsnitAnvendelse
+	{
+		[XmlElement(ElementName = "ServitutIndholdAnvendelse", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+		public ServitutIndholdAnvendelse ServitutIndholdAnvendelse { get; set; }
+	}
+
+	[XmlRoot(ElementName = "ServitutIndholdBebyggelse", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+	public class ServitutIndholdBebyggelse
+	{
+		[XmlElement(ElementName = "ServitutIndholdBebyggelseKode", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+		public string ServitutIndholdBebyggelseKode { get; set; }
+	}
+
+	[XmlRoot(ElementName = "ServitutAfsnitBebyggelse", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+	public class ServitutAfsnitBebyggelse
+	{
+		[XmlElement(ElementName = "ServitutIndholdBebyggelse", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+		public ServitutIndholdBebyggelse ServitutIndholdBebyggelse { get; set; }
+	}
+
+	[XmlRoot(ElementName = "ServitutIndholdAndet", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+	public class ServitutIndholdAndet
+	{
+		[XmlElement(ElementName = "ServitutIndholdAndetKode", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+		public string ServitutIndholdAndetKode { get; set; }
+	}
+
+	[XmlRoot(ElementName = "ServitutAfsnitAndet", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+	public class ServitutAfsnitAndet
+	{
+		[XmlElement(ElementName = "ServitutIndholdAndet", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+		public ServitutIndholdAndet ServitutIndholdAndet { get; set; }
+	}
+
+	[XmlRoot(ElementName = "ServitutIndholdEjendomsforhold", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+	public class ServitutIndholdEjendomsforhold
+	{
+		[XmlElement(ElementName = "ServitutIndholdEjendomsforholdKode", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+		public string ServitutIndholdEjendomsforholdKode { get; set; }
+	}
+
+	[XmlRoot(ElementName = "ServitutAfsnitEjendomsforhold", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+	public class ServitutAfsnitEjendomsforhold
+	{
+		[XmlElement(ElementName = "ServitutIndholdEjendomsforhold", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+		public ServitutIndholdEjendomsforhold ServitutIndholdEjendomsforhold { get; set; }
+	}
+
+	[XmlRoot(ElementName = "ServitutIndholdFaerdsel", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+	public class ServitutIndholdFaerdsel
+	{
+		[XmlElement(ElementName = "ServitutIndholdFaerdselKode", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+		public string ServitutIndholdFaerdselKode { get; set; }
+	}
+
+	[XmlRoot(ElementName = "ServitutAfsnitFaerdsel", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+	public class ServitutAfsnitFaerdsel
+	{
+		[XmlElement(ElementName = "ServitutIndholdFaerdsel", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+		public ServitutIndholdFaerdsel ServitutIndholdFaerdsel { get; set; }
+	}
+
+	[XmlRoot(ElementName = "ServitutIndholdTekniskeAnlaeg", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+	public class ServitutIndholdTekniskeAnlaeg
+	{
+		[XmlElement(ElementName = "ServitutIndholdTekniskeAnlaegKode", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+		public string ServitutIndholdTekniskeAnlaegKode { get; set; }
+	}
+
+	[XmlRoot(ElementName = "ServitutAfsnitTekniskeAnlaeg", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+	public class ServitutAfsnitTekniskeAnlaeg
+	{
+		[XmlElement(ElementName = "ServitutIndholdTekniskeAnlaeg", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+		public ServitutIndholdTekniskeAnlaeg ServitutIndholdTekniskeAnlaeg { get; set; }
+	}
+
+	[XmlRoot(ElementName = "ServitutSummariskSamling", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/elektroniskakt/1/")]
+	public class ServitutSummariskSamling
+	{
+		[XmlElement(ElementName = "ServitutSummarisk", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/elektroniskakt/1/")]
+		public List<ServitutSummarisk> ServitutSummarisk { get; set; }
+	}
+
+
 	[XmlRoot(ElementName = "HaeftelseSummarisk", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/elektroniskakt/1/")]
 	public class HaeftelseSummarisk
 	{
@@ -462,6 +673,14 @@ namespace WebApplicationTinglysning.Models
 		public RespektSamling RespektSamling { get; set; }
 		[XmlElement(ElementName = "OgsaaLystPaaSamling", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/elektroniskakt/1/")]
 		public OgsaaLystPaaSamling OgsaaLystPaaSamling { get; set; }
+		[XmlElement(ElementName = "HaeftelsePantebrevFormularLovpligtigKode", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+		public string HaeftelsePantebrevFormularLovpligtigKode { get; set; }
+		[XmlElement(ElementName = "HaeftelseRente", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+		public HaeftelseRente HaeftelseRente { get; set; }
+		[XmlElement(ElementName = "HaeftelseLaantypeKode", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
+		public string HaeftelseLaantypeKode { get; set; }
+		[XmlElement(ElementName = "TinglysningAfgiftBetalt", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/elektroniskakt/1/")]
+		public string TinglysningAfgiftBetalt { get; set; }
 	}
 
 	[XmlRoot(ElementName = "Respekt", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
@@ -494,6 +713,8 @@ namespace WebApplicationTinglysning.Models
 		public AdkomstSummariskSamling AdkomstSummariskSamling { get; set; }
 		[XmlElement(ElementName = "HaeftelseSummariskSamling", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/elektroniskakt/1/")]
 		public HaeftelseSummariskSamling HaeftelseSummariskSamling { get; set; }
+		[XmlElement(ElementName = "ServitutSummariskSamling", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/elektroniskakt/1/")]
+		public ServitutSummariskSamling ServitutSummariskSamling { get; set; }
 		[XmlElement(ElementName = "ModelId", Namespace = "http://rep.oio.dk/tinglysning.dk/schema/model/1/")]
 		public string ModelId { get; set; }
 	}
@@ -600,6 +821,8 @@ namespace WebApplicationTinglysning.Models
 		public string Ns13 { get; set; }
 		[XmlAttribute(AttributeName = "ns14", Namespace = "http://www.w3.org/2000/xmlns/")]
 		public string Ns14 { get; set; }
+		[XmlAttribute(AttributeName = "ns15", Namespace = "http://www.w3.org/2000/xmlns/")]
+		public string Ns15 { get; set; }
 		[XmlAttribute(AttributeName = "xd", Namespace = "http://www.w3.org/2000/xmlns/")]
 		public string Xd { get; set; }
 	}

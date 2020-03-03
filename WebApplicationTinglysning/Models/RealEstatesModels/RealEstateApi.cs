@@ -10,7 +10,7 @@ namespace WebApplicationTinglysning.Models
 
         public string PostCodeIdentifier { get; set; }
 
-        public string SideDoor { get; set; }
+        public string SuiteIdentifier { get; set; }
 
         public string StreetName { get; set; }
     }

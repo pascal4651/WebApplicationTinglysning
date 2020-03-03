@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using WebApplicationTinglysning.Helpers;
 using WebApplicationTinglysning.Models;
 using WebApplicationTinglysning.Servises;
 
@@ -12,12 +13,15 @@ namespace WebApplicationTinglysning.Controllers
 
         RealEstatesDbHandler dbHandler = new RealEstatesDbHandler();
 
-        // Search by address: postCodeIdentifier, districtName, streetBuildingIdentifier (Søgning med adresse) 
+        // Search by address: postCodeIdentifier, districtName, streetBuildingIdentifier (Søgning med adresse)
+        // localhost:62191/api/realestates/address?postcodeidentifier=2500&streetname=Retortvej
         // localhost:62191/api/realestates/address?streetbuildingidentifier=8&postcodeidentifier=2500&streetname=Retortvej
+        // localhost:62191/api/realestates/address?floorIdentifier=2&streetbuildingidentifier=28A&postcodeidentifier=2500&suiteIdentifier=TV&streetname=Retortvej
         [HttpGet]
         [Route("address")]
         public async Task<IActionResult> GetByAddressAsync([FromQuery] RealEstateApi realEstateApi)
         {
+            realEstateApi = NormalizeRealEstateApi(realEstateApi);
             var response = await dbHandler.GetRealEsatesByAddressAsync(realEstateApi);
             return HandleResponse(response);
         }
@@ -62,6 +66,18 @@ namespace WebApplicationTinglysning.Controllers
             var response = await dbHandler.GetRealEstatesByMunicipalCodeAndIdAsync(municipalRealEstateId, municipalityCode);
             return HandleResponse(response);
         }
+
+        private RealEstateApi NormalizeRealEstateApi(RealEstateApi realEstateApi)
+        {
+            return new RealEstateApi()
+            {
+                FloorIdentifier = realEstateApi.FloorIdentifier?.ToUpper(),
+                StreetBuildingIdentifier = realEstateApi.StreetBuildingIdentifier?.ToUpper(),
+                PostCodeIdentifier = realEstateApi.PostCodeIdentifier,
+                SuiteIdentifier = realEstateApi.SuiteIdentifier?.ToUpper(),
+                StreetName = realEstateApi.StreetName?.ToTitleCase()
+            };
+        } 
 
         private IActionResult HandleResponse(ResponseObject response)
         {
